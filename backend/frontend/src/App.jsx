@@ -1,6 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
 
+import ResumeChecklist from "./pages/ResumeChecklist";
+import Roadmap from "./pages/Roadmap";
+import ProgressTracker from "./pages/ProgressTracker";
+import CompanyTracker from "./pages/CompanyTracker";
+
 function App() {
   const [isLogin, setIsLogin] = useState(true);
   const [name, setName] = useState("");
@@ -26,7 +31,7 @@ function App() {
 
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
-        setMessage("Login successful");
+        window.location.reload();
       }
     } catch (error) {
       setMessage(error.response?.data?.message || "Something went wrong");
@@ -35,20 +40,46 @@ function App() {
 
   if (token) {
     return (
-      <div style={{ padding: "40px", fontFamily: "Arial" }}>
+      <div className="container">
         <h1>AI Placement Mentor</h1>
-        <h2>Student Dashboard</h2>
 
-        <p>Welcome to your placement preparation dashboard.</p>
+        <div className="card">
+          <h2>Student Dashboard</h2>
+          <p>Welcome to your placement preparation dashboard.</p>
 
-        <div>
-          <h3>Your Features</h3>
-          <ul>
-            <li>Profile Builder</li>
-            <li>Placement Roadmap</li>
-            <li>Resume Checklist</li>
-            <li>Progress Tracker</li>
-          </ul>
+          <div className="feature-grid">
+            <div className="card">
+              <h3>Profile Builder</h3>
+            </div>
+
+            <div className="card">
+              <h3>Placement Roadmap</h3>
+            </div>
+
+            <div className="card">
+              <h3>Resume Checklist</h3>
+            </div>
+
+            <div className="card">
+              <h3>Progress Tracker</h3>
+            </div>
+          </div>
+        </div>
+
+        <div className="card">
+          <ResumeChecklist />
+        </div>
+
+        <div className="card">
+          <Roadmap />
+        </div>
+
+        <div className="card">
+          <ProgressTracker />
+        </div>
+
+        <div className="card">
+          <CompanyTracker />
         </div>
 
         <button
@@ -64,53 +95,54 @@ function App() {
   }
 
   return (
-    <div style={{ padding: "40px", fontFamily: "Arial" }}>
-      <h1>AI Placement Mentor</h1>
+    <div className="container">
+      <div className="card">
+        <h1>AI Placement Mentor</h1>
 
-      <h2>{isLogin ? "Login" : "Signup"}</h2>
+        <h2>{isLogin ? "Login" : "Signup"}</h2>
 
-      {!isLogin && (
+        {!isLogin && (
+          <>
+            <input
+              placeholder="Enter Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+
+            <br />
+            <br />
+          </>
+        )}
+
         <input
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          placeholder="Enter Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
-      )}
 
-      <br />
-      <br />
+        <br />
+        <br />
 
-      <input
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
+        <input
+          placeholder="Enter Password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
-      <br />
-      <br />
+        <br />
+        <br />
 
-      <input
-        placeholder="Password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+        <button onClick={handleSubmit}>
+          {isLogin ? "Login" : "Signup"}
+        </button>
 
-      <br />
-      <br />
+        <button onClick={() => setIsLogin(!isLogin)}>
+          {isLogin ? "Go to Signup" : "Go to Login"}
+        </button>
 
-      <button onClick={handleSubmit}>
-        {isLogin ? "Login" : "Signup"}
-      </button>
-
-      <button
-        onClick={() => setIsLogin(!isLogin)}
-        style={{ marginLeft: "10px" }}
-      >
-        {isLogin ? "Go to Signup" : "Go to Login"}
-      </button>
-
-      <p>{message}</p>
+        <p>{message}</p>
+      </div>
     </div>
   );
 }
