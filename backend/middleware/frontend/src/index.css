@@ -61,3 +61,40 @@ input {
   background: #22c55e;
   border-radius: 20px;
 }
+.resume-box {
+  max-width: 500px;
+  margin: auto;
+}
+
+.small-text {
+  color: #64748b;
+}
+
+.checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 25px auto;
+  max-width: 350px;
+  text-align: left;
+}
+
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 18px;
+  background: #f8fafc;
+  padding: 12px 15px;
+  border-radius: 10px;
+}
+
+.check-item input {
+  width: 18px;
+  height: 18px;
+}
+
+.done {
+  text-decoration: line-through;
+  color: #16a34a;
+}
